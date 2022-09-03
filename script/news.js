@@ -8,11 +8,11 @@ const displayCategories = (categories) => {
     const divContainer = document.getElementById('div-container');
     for (const category of categories) {
         // console.log(category.category_name)
-        const categoryDiv = document.createElement('div');
-        categoryDiv.innerHTML = `
+        // const categoryDiv = document.createElement('div');
+        divContainer.innerHTML = `
         <button onclick="newsSection('${category.category_id}')" class="btn btn-light">${category.category_name}</button>
         `
-        divContainer.appendChild(categoryDiv);
+        // divContainer.appendChild(categoryDiv);
     }
 
 };
