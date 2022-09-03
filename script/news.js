@@ -4,24 +4,15 @@ const loadCategories = async () => {
         .then(data => displayCategories(data.data.news_category))
 }
 const displayCategories = (categories) => {
-    // console.log(categories)
 
+    const divContainer = document.getElementById('div-container');
     for (const category of categories) {
-        console.log(category.category_id);
-        const divContainer = document.getElementById('div-container');
-        const categoryList = document.createElement('button');
-        categoryList.classList.add('btn')
-        categoryList.innerHTML = `${category.category_name}`;
-        categoryList.setAttribute("onclick", newsSection());
-        categoryList.onclick = newsSection(category.category_id);
-        document.getElementsByClassName('btn').onclick = newsSection();
-
-        // but.setAttribute("onclick", callJavascriptFunction);
-        // but.onclick = callJavascriptFunction;
-        // document.getElementById("but").onclick = callJavascriptFunction;
-
-        divContainer.appendChild(categoryList);
-
+        // console.log(category.category_name)
+        const categoryDiv = document.createElement('div');
+        categoryDiv.innerHTML = `
+        <button onclick="newsSection('${category.category_id}')" class="btn btn-light">${category.category_name}</button>
+        `
+        divContainer.appendChild(categoryDiv);
     }
 
 };
@@ -29,12 +20,12 @@ const displayCategories = (categories) => {
 
 
 const newsSection = (id) => {
-    console.log(id);
+    // console.log(id);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     fetch(url)
-        // console.log(url)
         .then(res => res.json())
         .then(data => displayNewsSection(data.data))
+
 
 }
 
@@ -45,27 +36,21 @@ const newsSection = (id) => {
 
 const displayNewsSection = (allNews) => {
     for (const news of allNews) {
-        console.log(news)
+        // console.log(news)
         const newsContainer = document.getElementById('news-container');
         const newsDiv = document.createElement('div');
 
         newsDiv.innerHTML = `
                     <div class="d-flex bg-light">
-                        <div style="width:20% ;"><img class="img-fluid h-100" src="images/fanush.jpg" alt=""></div>
+                        <div style="width:20% ;"><img class="img-fluid h-100" src="${news.thumbnail_url}" alt=""></div>
                         <div style="width:80% ;" class="mt-3 mx-4">
-                            <h3 class="fw-bold">The best fashion influencers to follow for sartorial inspiration</h3>
-                            <p>From our favourite UK influencers to the best missives from Milan and the coolest New
-                                Yorkers, read on some of the
-                                best fashion blogs out there, and for even more inspiration, do head to our separate
-                                black fashion influencer roundup.Fancy some shopping deals? Check out these amazing
-                                sales: Zara Black Friday, ASOS Black
-                                Friday, Missoma Black
-                                Friday and Gucci Black Friday</p>
+                            <h3 class="fw-bold">${news.title}</h3>
+                            <p>${news.details}</p>
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex">
                                     <img style="height: 30px; width: 30px; margin-right: 1vw;" class="rounded-circle"
-                                        src="images/fanush.jpg" alt="">
-                                    <h5>Name</h5>
+                                        src="${news.author.img}" alt="">
+                                    <h6>${news.author.name}</h6>
                                 </div>
                                 <button class="btn btn-light">Next</button>
                             </div>
