@@ -8,13 +8,19 @@ const displayCategories = (categories) => {
 
     for (const category of categories) {
         console.log(category.category_id);
-        // const divContainer = document.getElementById('div-container');
-        // const categoryList = document.createElement('button');
-        // categoryList.classList.add('btn')
-        // categoryList.innerHTML = `${category.category_name}`;
-        // categoryList.setAttribute("onclick", newsSection(category.category_id));
+        const divContainer = document.getElementById('div-container');
+        const categoryList = document.createElement('button');
+        categoryList.classList.add('btn')
+        categoryList.innerHTML = `${category.category_name}`;
+        categoryList.setAttribute("onclick", newsSection());
+        categoryList.onclick = newsSection(category.category_id);
+        document.getElementsByClassName('btn').onclick = newsSection();
 
-        // divContainer.appendChild(categoryList);
+        // but.setAttribute("onclick", callJavascriptFunction);
+        // but.onclick = callJavascriptFunction;
+        // document.getElementById("but").onclick = callJavascriptFunction;
+
+        divContainer.appendChild(categoryList);
 
     }
 
@@ -23,7 +29,7 @@ const displayCategories = (categories) => {
 
 
 const newsSection = (id) => {
-    // console.log(id);
+    console.log(id);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     fetch(url)
         // console.log(url)
