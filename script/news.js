@@ -2,6 +2,7 @@ const loadCategories = async () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
         .then(data => displayCategories(data.data.news_category))
+        .catch(err => console.log(err))
 }
 
 const displayCategories = (categories) => {
@@ -15,12 +16,14 @@ const displayCategories = (categories) => {
         <button onclick="newsSection('${category.category_id}')" class="btn btn-light mt-4">${category.category_name}</button>
 `
         divContainer.appendChild(categoryDiv);
+
     }
 
 };
 
 
 const newsSection = (id) => {
+    toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     fetch(url)
         .then(res => res.json())
@@ -30,13 +33,13 @@ const newsSection = (id) => {
 
 const displayNewsSection = (allNews) => {
 
+
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerHTML = '';
 
     for (const news of allNews) {
-        // console.log(news);
+        toggleSpinner(false);
         const newsDiv = document.createElement('div');
-
         newsDiv.innerHTML = `
                 <div class="d-flex bg-light mt-4">
                     <div style="width:20% ;"><img class="img-fluid h-100" src="${news.thumbnail_url}" alt=""></div>
@@ -60,6 +63,17 @@ const displayNewsSection = (allNews) => {
     }
 }
 
+const toggleSpinner = (isLoading) => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none');
+    }
+    else {
+        loaderSection.classList.add('d-none');
+    }
+
+}
+
 const showNewsModal = (news_id) => {
     // console.log(news_id);
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
@@ -78,7 +92,7 @@ const displayShowModal = (detalInfo) => {
     modalDetail.innerHTML = `
     <p>Author Name: ${detalInfo.author.name ? detalInfo.author.name : "No Author Name Found"}</p>
     <p>Publish Date: ${detalInfo.author.publish_date ? detalInfo.author.publish_date : "No Date Found"}</p>
-    <p>Total View: ${detalInfo.total_view ? detalInfo.total_view : "No Views"}</p>
+    <p>Total Views: ${detalInfo.total_view ? detalInfo.total_view : "No Views"}</p>
     `
 
 
