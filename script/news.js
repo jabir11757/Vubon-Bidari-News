@@ -1,8 +1,8 @@
-const loadCategories = async () => {
+const loadCategories = () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
         .then(res => res.json())
         .then(data => displayCategories(data.data.news_category))
-        .catch(err => console.log(err))
+    // .catch(err => console.log(err))
 }
 
 const displayCategories = (categories) => {
@@ -38,7 +38,6 @@ const displayNewsSection = (allNews) => {
     newsContainer.innerHTML = '';
 
     for (const news of allNews) {
-        toggleSpinner(false);
         const newsDiv = document.createElement('div');
         newsDiv.innerHTML = `
                 <div class="d-flex bg-light mt-4">
@@ -61,6 +60,9 @@ const displayNewsSection = (allNews) => {
         newsDiv.classList.add('row');
         newsContainer.appendChild(newsDiv);
     }
+    toggleSpinner(false);
+    let item = allNews.length;
+    const countField = document.getElementById('count-div').innerText = item + " " + 'items found for category Entertainment';
 }
 
 const toggleSpinner = (isLoading) => {
