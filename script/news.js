@@ -38,7 +38,7 @@ const displayNewsSection = (allNews) => {
         const newsDiv = document.createElement('div');
 
         newsDiv.innerHTML = `
-                <div class="d-flex bg-light">
+                <div class="d-flex bg-light mt-4">
                     <div style="width:20% ;"><img class="img-fluid h-100" src="${news.thumbnail_url}" alt=""></div>
                     <div style="width:80% ;" class="mt-3 mx-4">
                         <h3 class="fw-bold">${news.title}</h3>
@@ -71,7 +71,15 @@ const showNewsModal = (news_id) => {
 const displayShowModal = (detalInfo) => {
     // console.log(detalInfo);
     const modalHeader = document.getElementById('showModalLabel');
-    modalHeader.innerText = detalInfo.author.published_date;
+    modalHeader.innerText = detalInfo.rating.badge;
+
+    const modalDetail = document.getElementById('modal-detail');
+    modalDetail.classList.add('modal-body');
+    modalDetail.innerHTML = `
+    <p>Author Name: ${detalInfo.author.name ? detalInfo.author.name : "No Author Name Found"}</p>
+    <p>Publish Date: ${detalInfo.author.publish_date ? detalInfo.author.publish_date : "No Date Found"}</p>
+    <p>Total View: ${detalInfo.total_view ? detalInfo.total_view : "No Views"}</p>
+    `
 
 
 }
