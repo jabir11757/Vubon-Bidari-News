@@ -43,9 +43,9 @@ const displayNewsSection = (allNews) => {
         newsDiv.innerHTML = `
                 <div class="d-flex bg-light mt-4">
                     <div style="width:20% ;"><img class="img-fluid h-100" src="${news.thumbnail_url}" alt=""></div>
-                    <div style="width:80% ;" class="mt-3 mx-4">
+                    <div style="width:80% ;" class="mt-4 mx-4">
                         <h3 class="fw-bold">${news.title}</h3>
-                        <p>${news.details}</p>
+                        <p class="my-4">${news.details.length > 300 ? news.details.slice(0, 300) && news.details.slice(0, 300) + "  ..." : " "}</p>
                         <div class="d-flex justify-content-between">
                             <div class="d-flex">
                                 <img style="height: 30px; width: 30px; margin-right: 1vw;" class="rounded-circle"
